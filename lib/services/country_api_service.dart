@@ -16,13 +16,15 @@ class CountryApiService {
       return data.map((country) {
         return Country(
           name: country["name"]["common"],
-          capital: country["capital"] != null ? country["capital"][0] : "brak",
+          capital: country["capital"] != null && country["capital"].isNotEmpty
+              ? country["capital"][0]
+              : "brak",
           flag: country["flags"]["png"],
           region: country["region"],
-          language: country["languages"] != null
+          language: country["languages"] != null && country["languages"].isNotEmpty
               ? country["languages"].values.first
               : "brak",
-          currency: country["currencies"] != null
+          currency: country["currencies"] != null && country["currencies"].isNotEmpty
               ? country["currencies"].keys.first
               : "brak",
           code: country["cca3"],
