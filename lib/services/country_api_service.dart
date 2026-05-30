@@ -34,4 +34,31 @@ class CountryApiService {
       throw Exception("Błąd pobierania krajów");
     }
   }
+  static Future<Country> fetchCountryDetails(String code) async {
+    final response = await http.get(
+      Uri.parse("$baseUrl/alpha/$code?fields=name,capital,flags,region,languages,currencies,cca3"),
+    );
+
+    if (response.statusCode == 200) {
+      final country = jsonDecode(response.body);
+
+      return Country(
+        name: country["name"]["common"],
+        capital: country["capital"] != null && country["capital"].isNotEmpty
+            ? country["capital"][0]
+            : "brak",
+        flag: country["flags"]["png"],
+        region: country["region"],
+        language: country["languages"] != null && country["languages"].isNotEmpty
+            ? country["languages"].values.first
+            : "brak",
+        currency: country["currencies"] != null && country["currencies"].isNotEmpty
+            ? country["currencies"].keys.first
+            : "brak",
+        code: country["cca3"],
+      );
+    } else {
+      throw Exception("Błąd pobierania szczegółów kraju");
+    }
+  }
 }
