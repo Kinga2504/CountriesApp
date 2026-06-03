@@ -1,17 +1,30 @@
-# countries_app
+# Countries App
+Aplikacja mobilna napisana we Flutterze, która wyświetla informacje o krajach pobierane z publicznego REST API.
 
-A new Flutter project.
+## Wykorzystane API
 
-## Getting Started
+Aplikacja korzysta z REST Countries API:
 
-This project is a starting point for a Flutter application.
+https://restcountries.com/
 
-A few resources to get you started if this is your first Flutter project:
+Z API pobierane są informacje takie jak:
+- nazwa kraju,
+- stolica,
+- flaga,
+- region,
+- język,
+- waluta,
+- kod kraju.
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+## Funkcje aplikacji
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Aplikacja posiada:
+- ekran listy krajów
+- ekran szczegółów wybranego kraju
+- wyszukiwanie kraju po nazwie
+- pobieranie danych z REST API
+- obsługę stanu ładowania danych
+- obsługę błędów
+- zapisywanie danych w lokalnej bazie Hive
+- działanie w trybie offline po wcześniejszym pobraniu danych
+
