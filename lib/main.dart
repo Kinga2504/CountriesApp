@@ -144,7 +144,21 @@ class _CountryDetailsScreenState extends State<CountryDetailsScreen> {
   @override
   void initState() {
     super.initState();
-    countryFuture = CountryApiService.fetchCountryDetails(widget.code);
+    countryFuture = loadCountryDetails();
+  }
+
+  Future<Country> loadCountryDetails() async {
+    try {
+      return await CountryApiService.fetchCountryDetails(widget.code);
+    } catch (e) {
+      final localCountry = CountryLocalDatabase.getCountryByCode(widget.code);
+
+      if (localCountry != null) {
+        return localCountry;
+      }
+
+      throw Exception("Nie udało się pobrać szczegółów kraju");
+    }
   }
 
   @override

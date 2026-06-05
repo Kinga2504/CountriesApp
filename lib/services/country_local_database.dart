@@ -12,6 +12,18 @@ class CountryLocalDatabase {
     }).toList();
   }
 
+  static Country? getCountryByCode(String code) {
+    final item = _box.get(code);
+
+    if (item == null) {
+      return null;
+    }
+
+    return Country.fromMap(
+      Map<String, dynamic>.from(item),
+    );
+  }
+
   static Future<void> saveCountries(List<Country> countries) async {
     await _box.clear();
 
