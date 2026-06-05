@@ -3,6 +3,7 @@ import 'country_repository.dart';
 import 'services/country_api_service.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'services/country_sync_service.dart';
+import 'services/country_local_database.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,7 +41,12 @@ class _CountryListScreenState extends State<CountryListScreen> {
   @override
   void initState() {
     super.initState();
-    countriesFuture = CountrySyncService.loadCountries();
+    countriesFuture = loadCountries();
+  }
+
+  Future<List<Country>> loadCountries() async {
+    await CountrySyncService.loadInitialDataIfNeeded();
+    return CountryLocalDatabase.getCountries();
   }
 
   @override
@@ -92,11 +98,11 @@ class _CountryListScreenState extends State<CountryListScreen> {
                     return Card(
                       child: ListTile(
                         leading: Image.network(
-                            country.flag,
-                            width: 50,
-                            errorBuilder: (context, error, stackTrace) {
-                              return const Icon(Icons.flag);
-                              },
+                          country.flag,
+                          width: 50,
+                          errorBuilder: (context, error, stackTrace) {
+                            return const Icon(Icons.flag);
+                          },
                         ),
                         title: Text(country.name),
                         subtitle: Text("Stolica: ${country.capital}"),
@@ -163,20 +169,60 @@ class _CountryDetailsScreenState extends State<CountryDetailsScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Center(child: Image.network(
+                Center(
+                  child: Image.network(
                     country.flag,
-                    width: 160,
+                    width: 180,
                     errorBuilder: (context, error, stackTrace) {
                       return const Icon(Icons.flag, size: 80);
-                      },
-                )),
+                    },
+                  ),
+                ),
                 const SizedBox(height: 20),
-                Text("Nazwa: ${country.name}"),
-                Text("Stolica: ${country.capital}"),
-                Text("Region: ${country.region}"),
-                Text("Język: ${country.language}"),
-                Text("Waluta: ${country.currency}"),
-                Text("Kod kraju: ${country.code}"),
+                Text(
+                  country.name,
+                  style: const TextStyle(
+                    fontSize: 26,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      children: [
+                        ListTile(
+                          leading: Icon(Icons.location_city),
+                          title: Text("Stolica"),
+                          subtitle: Text(country.capital),
+                        ),
+                        ListTile(
+                          leading: Icon(Icons.public),
+                          title: Text("Region"),
+                          subtitle: Text(country.region),
+                        ),
+                        ListTile(
+                          leading: Icon(Icons.language),
+                          title: Text("Język"),
+                          subtitle: Text(country.language),
+                        ),
+                        ListTile(
+                          leading: Icon(Icons.attach_money),
+                          title: Text("Waluta"),
+                          subtitle: Text(country.currency),
+                        ),
+                        ListTile(
+                          leading: Icon(Icons.code),
+                          title: Text("Kod kraju"),
+                          subtitle: Text(country.code),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
           );

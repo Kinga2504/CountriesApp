@@ -3,7 +3,7 @@ import 'country_local_database.dart';
 import '../country_repository.dart';
 
 class CountrySyncService {
-  static Future<List<Country>> loadCountries() async {
+  static Future<List<Country>> loadInitialDataIfNeeded() async {
     if (!CountryLocalDatabase.isEmpty()) {
       return CountryLocalDatabase.getCountries();
     }
