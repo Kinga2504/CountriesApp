@@ -124,7 +124,7 @@ potwierdzenia wymagań funkcjonalnych.
 - [Przypadki testowe](qa-documentation/test-cases.md)
 - [Raport błędu](qa-documentation/bug-reports.md)
 - [Podsumowanie testów](qa-documentation/test-summary.md)
-- [Zrzut ekranu BUG-001](qa-documentation/screenshots/TC-009-spaces.png)
+- [Zrzut ekranu BUG-001](qa-documentation/scrennshots/TC-009-spaces.png)
 
 ## Wnioski
 
