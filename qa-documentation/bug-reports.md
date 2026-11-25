@@ -47,4 +47,4 @@ w specyfikacji aplikacji.
 
 ### Dowód testowy
 
-![TC-009 – Wyszukiwanie ze spacjami](scrennshots/TC-009-spaces.png)
+![TC-009 – Wyszukiwanie ze spacjami](screenshots/TC-009-spaces.png)
